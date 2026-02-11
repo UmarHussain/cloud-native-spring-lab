@@ -1,0 +1,32 @@
+server:
+  port: 8080
+  shutdown: graceful
+
+spring:
+  application:
+    name: inventory-service
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/inventorydb}
+    username: ${DB_USER:inventory}
+    password: ${DB_PASS:inventory}
+  jpa:
+    hibernate:
+      default_schema: inventory
+      ddl-auto: validate
+  flyway:
+    default-schema: inventory
+    schemas: inventory
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      probes:
+        enabled: true

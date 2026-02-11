@@ -1,0 +1,48 @@
+server:
+  port: 8081
+  shutdown: graceful
+
+spring:
+  application:
+    name: order-service
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/orderdb}
+    username: ${DB_USER:order}
+    password: ${DB_PASS:order}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        default_schema: orders
+        format_sql: false
+  flyway:
+    default-schema: orders
+    schemas: orders
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  health:
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true
+
+app:
+  clients:
+   inventory:
+     base-url: ${INVENTORY_BASE_URL:http://localhost:8080}
+     connect-timeout-ms: 2000
+     read-timeout-ms: 2000
+
