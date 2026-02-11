@@ -18,13 +18,12 @@ services:
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/orderdb
-      SPRING_DATASOURCE_USERNAME: order_user
-      SPRING_DATASOURCE_PASSWORD: orderpass
+      DB_URL: ${ORDER_DB_URL}
+      DB_USER: ${ORDER_DB_USER}
+      DB_PASS: ${ORDER_DB_PASS}
 
-      SPRING_FLYWAY_SCHEMAS: orders
-      SPRING_FLYWAY_DEFAULT_SCHEMA: orders
-      SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA: orders
+      DB_SCHEMA: ${ORDER_SCHEMA}
+      FLYWAY_SCHEMA: ${ORDER_SCHEMA}
     depends_on:
       - postgres
     restart: unless-stopped

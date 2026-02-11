@@ -17,11 +17,11 @@ spring:
       ddl-auto: validate
     properties:
       hibernate:
-        default_schema: orders
+        default_schema: ${DB_SCHEMA:orders}
         format_sql: false
   flyway:
-    default-schema: orders
-    schemas: orders
+    default-schema: ${FLYWAY_SCHEMA:orders}
+    schemas: ${FLYWAY_SCHEMA:orders}
     enabled: true
 
 management:
